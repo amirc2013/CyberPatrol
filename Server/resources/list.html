@@ -1,0 +1,27 @@
+<!doctype html>
+<html style="direction:rtl" ng-app="dbApp">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="app.js"></script>
+</head>
+<body dir="rtl">
+
+<h3> מאגר אתרים פליליים </h3>
+<div ng-controller="DBControler as db">
+<table class="table table-bordered">
+	<tr>
+		<th style="text-align:center">שם</th>
+		<th style="text-align:center">כתובת</th>
+		<th style="text-align:center">סיווג פלילי</th>
+	</tr>
+	<tr ng-repeat="site in db.sites">
+		<td>{{site.name}}</td>
+		<td>{{site.url}}</td>
+		<td>{{site.classification}}</td>
+	</tr>
+</table>
+</div>
+</body>
+</html>
+	
