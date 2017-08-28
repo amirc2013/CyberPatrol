@@ -28,14 +28,14 @@ public class Bootstrap {
             gson = new Gson();
             get("/getWebsites", (req, res) -> gson.toJson(webService.getWebsites()));
 
-
             get("/addWebsite/:name/:address/:classification", (req, res) -> {
                 String name = req.params(":name");
                 String address = req.params(":address");
                 CriminalClassification classification = CriminalClassification.valueOf(req.params(":classification"));
-                webService.create(new Website(name,address,classification));
+                webService.create(new Website(name, address, classification));
                 return true;
             });
+
         } catch (CyberPatrolException e) {
             e.printStackTrace();
         }
