@@ -1,0 +1,5 @@
+@media screen and (max-width : 420px){
+.twitch{
+width:100% !important;height:240px !important;
+}
+}

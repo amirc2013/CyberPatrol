@@ -26,8 +26,14 @@ public class Bootstrap {
             WebsiteDaoMongoImpl dao = new WebsiteDaoMongoImpl(mc);
             WebsiteService webService = new WebsiteServiceImpl(dao);
 
+            enableCORS("*", "*", "*");
+
             gson = new Gson();
-            enableCORS("*","*","*");
+
+            post("/addWebsite", (request, response) -> {
+                return null;
+            });
+
             get("/getWebsites", (req, res) -> gson.toJson(webService.getWebsites()));
 
             get("/addWebsite/:name/:address/:classification", (req, res) -> {
@@ -48,6 +54,7 @@ public class Bootstrap {
             mc.dropDatabase(name);
         }
     }
+
     // Enables CORS on requests. This method is an initialization method and should be called once.
     private static void enableCORS(final String origin, final String methods, final String headers) {
 
