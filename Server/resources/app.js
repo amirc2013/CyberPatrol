@@ -1,9 +1,14 @@
 angular.module('dbApp', [])
-	.controller('DBControler', function() {
+	.controller('DBControler', function($http) {
 		var db = this;
-		db.sites = [
-		{name:'niv', url:'niv.com', classification:'evil'},
-		{name:'guy', url:'guy.com', classification:'good'},
-		{name:'amir', url:'amir.co.il', classification:'nice'}];
+		$http({
+		  method: 'GET',
+		  url: 'http://192.168.99.203:4567/getWebsites'
+		}).then(function successCallback(response) {
+			db.sites = response.data;
+		  }, function errorCallback(response) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		  });
 	}
 	);
