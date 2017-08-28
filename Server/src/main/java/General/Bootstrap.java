@@ -4,7 +4,6 @@ package General;
  */
 
 import Dao.WebsiteDaoMongoImpl;
-import Entities.CriminalClassification;
 import Entities.Website;
 import Exceptions.CyberPatrolException;
 import Service.WebsiteService;
@@ -31,18 +30,11 @@ public class Bootstrap {
             gson = new Gson();
 
             post("/addWebsite", (request, response) -> {
-                return null;
+                webService.create(gson.fromJson(request.body(), Website.class));
+                return true;
             });
 
             get("/getWebsites", (req, res) -> gson.toJson(webService.getWebsites()));
-
-            get("/addWebsite/:name/:address/:classification", (req, res) -> {
-                String name = req.params(":name");
-                String address = req.params(":address");
-                CriminalClassification classification = CriminalClassification.valueOf(req.params(":classification"));
-                webService.create(new Website(name, address, classification));
-                return true;
-            });
 
         } catch (CyberPatrolException e) {
             e.printStackTrace();

@@ -2,9 +2,6 @@ package Entities;
 
 import java.io.Serializable;
 
-/**
- * Created by User on 8/28/2017.
- */
 public class Website implements Serializable {
     private String name;
     private String url;
