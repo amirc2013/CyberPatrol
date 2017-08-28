@@ -16,11 +16,6 @@ public class Website implements Serializable {
         this.classifictclassification = classification;
     }
 
-    public boolean isOnline() {
-        //TODO: stub
-        return true;
-    }
-
     public String getName() {
         return name;
     }
