@@ -5,6 +5,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import spark.Response;
+
 public class Server {
 
 	private static String readResource(String name) throws IOException{
@@ -12,24 +14,24 @@ public class Server {
 		return Files.readAllLines(p1).stream().reduce((s1,s2)->{return s1 + "\n" + s2;}).orElse("");
 	}
 	
-	private static void setupURL(String name, String suffix) throws IOException{
-		String s = readResource(name+"."+suffix);
-		get("/"+name, (req,res) -> s);
+	private static void setupURL(String url, String filename) throws IOException{
+		get("/"+url, (req,res) -> readResource(filename));
 	}
 	
 	private static void setupHtml(String name) throws IOException{
-		setupURL(name,"html");
+		setupURL(name,name+".html");
 	}
 	
 	private static void setupJavaScript(String name) throws IOException{
-		String s = readResource(name+".js");
-		get("/"+name+".js", (req,res) -> s);
+		setupURL(name+".js",name+".js");
 	}
 	
 	public static void main(String[] args) throws IOException {
 		setupHtml("list");
 		setupHtml("scan");
 		setupHtml("main");
+		setupHtml("scanRes");
 		setupJavaScript("app");
+		setupJavaScript("scan");
 	}
 }
