@@ -25,6 +25,7 @@ public class Bootstrap {
             WebsiteDaoMongoImpl dao = new WebsiteDaoMongoImpl(mc);
             WebsiteService webService = new WebsiteServiceImpl(dao);
 
+            staticFileLocation("/public");
             enableCORS("*", "*", "*");
 
             gson = new Gson();
@@ -35,7 +36,6 @@ public class Bootstrap {
             });
 
             get("/getWebsites", (req, res) -> gson.toJson(webService.getWebsites()));
-
         } catch (CyberPatrolException e) {
             e.printStackTrace();
         }
