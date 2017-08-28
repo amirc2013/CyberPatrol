@@ -3,26 +3,60 @@
  */
 
 import static spark.Spark.*;
+
+import Dao.AbstractDao;
+import Dao.WebsiteDaoMongoImpl;
+import Entities.CriminalClassification;
+import Entities.Website;
 import com.mongodb.*;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
+import java.io.*;
+import java.util.Iterator;
+import java.util.Properties;
 
 public class Main {
 
-    public  static void main(String args[]){
+    private static final String HOST = "host";
+    private static final String PORT = "port";
+    private static final String CONFIGURATION_FILE_NAME = "config.properties";
 
-        get("/hello", (req, res) -> "Hello World");
+    public static void main(String args[]) {
+        Properties prop = loadProperties(CONFIGURATION_FILE_NAME);
+        MongoClient mc = new MongoClient(prop.getProperty(HOST), Integer.parseInt(prop.getProperty(PORT)));
 
-        // Creating a Mongo client
-        MongoClient mongo = new MongoClient( "localhost" , 27017 );
+        // Clear the Database
+        clearDB(mc);
 
-        // Creating Credentials
-        MongoCredential credential;
-        credential = MongoCredential.createCredential("sampleUser", "myDb", "password".toCharArray());
-        System.out.println("Connected to the database successfully");
-
-        // Accessing the database
-        MongoDatabase database = mongo.getDatabase("myDb");
-        System.out.println("Credentials ::"+ credential);
+        Website web = new Website("fff", "27", CriminalClassification.PEDOPHILE);
+        WebsiteDaoMongoImpl dao = new WebsiteDaoMongoImpl(mc);
+        dao.create(web);
+        for (Website website : dao.getWebsites()) {
+            System.out.println(website.getName());
+        }
     }
 
+    private static Properties loadProperties(String name) {
+        Properties prop = null;
+        try (InputStream input = new FileInputStream(name);) {
+            prop = new Properties();
+            prop.load(input);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            prop = null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            prop = null;
+        }
+        return prop;
+    }
+
+    private static void clearDB(MongoClient mc) {
+        for (String name : mc.listDatabaseNames()) {
+            mc.dropDatabase(name);
+        }
+    }
 }
