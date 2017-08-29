@@ -44,8 +44,10 @@
             <state relative-caret-position="125">
               <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
               <folding>
+                <element signature="n#style#0;n#img#1;n#h1#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#iframe#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1503968240363" expanded="true" signature="582:590" ph="..." />
+                <marker date="1503970885313" expanded="false" signature="371:394" ph="..." />
+                <marker date="1503970885313" expanded="true" signature="722:730" ph="..." />
               </folding>
             </state>
           </provider>
@@ -175,6 +177,7 @@
         <option value="$PROJECT_DIR$/src/main/java/Exceptions/CyberPatrolException.java" />
         <option value="$PROJECT_DIR$/src/main/java/General/Configuration.java" />
         <option value="$PROJECT_DIR$/src/main/java/General/Bootstrap.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/public/main.html" />
       </list>
     </option>
   </component>
@@ -1010,12 +1013,12 @@
       <workItem from="1503959479648" duration="871000" />
       <workItem from="1503962339790" duration="1606000" />
       <workItem from="1503968643527" duration="1247000" />
-      <workItem from="1503970829888" duration="23000" />
+      <workItem from="1503970829888" duration="757000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40471000" />
+    <option name="totallyTimeSpent" value="41205000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -1422,8 +1425,10 @@
         <state relative-caret-position="125">
           <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
           <folding>
+            <element signature="n#style#0;n#img#1;n#h1#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#iframe#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1503968240363" expanded="true" signature="582:590" ph="..." />
+            <marker date="1503970885313" expanded="false" signature="371:394" ph="..." />
+            <marker date="1503970885313" expanded="true" signature="722:730" ph="..." />
           </folding>
         </state>
       </provider>
