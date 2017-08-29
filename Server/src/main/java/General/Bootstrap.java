@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.mongodb.*;
 
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import static spark.Spark.*;
 
@@ -39,9 +40,9 @@ public class Bootstrap {
             });
 
             post("/sampleWeb", (request, response) -> {
-                String urlToCheck = URLDecoder.decode(request.body(),"UTF-8");
-                System.out.println(urlToCheck);
-                return gson.toJson(new HttpClientUtil().sendGETWithParam("http://127.0.0.1:5002/sampleWeb",urlToCheck));
+               // String urlToCheck = URLDecoder.decode(request.body(), "UTF-8");
+                return gson.toJson(new HttpClientUtil().sendGET
+                        ("http://127.0.0.1:5002/sampleWeb?url=" + request.body()));
             });
 
             get("/getWebsites", (req, res) -> gson.toJson(webService.getWebsites()));
