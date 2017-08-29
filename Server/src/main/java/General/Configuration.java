@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * Created by User on 8/28/2017.
- */
 public class Configuration {
     private static final String CONFIGURATION_FILE_NAME = "config.properties";
     private static final String MONGO_HOST = "host";

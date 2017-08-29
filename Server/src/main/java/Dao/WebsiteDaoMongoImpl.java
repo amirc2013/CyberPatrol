@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-/**
- * Created by User on 8/28/2017.
- */
 public class WebsiteDaoMongoImpl extends AbstractMongoDao<Website> implements WebsitesDao<MongoClient> {
     private static final String WEBSITES_RECORDS_NAME = "Website";
 
@@ -23,19 +20,19 @@ public class WebsiteDaoMongoImpl extends AbstractMongoDao<Website> implements We
 
     @Override
     public Collection<Website> getWebsites() {
-        Collection<Website> c = new ArrayList<Website>();
+        Collection<Website> websites = new ArrayList<Website>();
         MongoCollection<Document> collection = database.getCollection(getRecordsName());
 
         FindIterable<Document> iterDoc = collection.find();
-        Iterator it = iterDoc.iterator();
+        Iterator webIterator = iterDoc.iterator();
 
-        while (it.hasNext()) {
-            Document d = (Document) it.next();
-            Website web = gson.fromJson((String) d.get(OBJECT_RECORD), Website.class);
-            c.add(web);
+        while (webIterator.hasNext()) {
+            Document webDoc = (Document) webIterator.next();
+            Website web = gson.fromJson((String) webDoc.get(OBJECT_RECORD), Website.class);
+            websites.add(web);
         }
 
-        return c;
+        return websites;
     }
 
     @Override

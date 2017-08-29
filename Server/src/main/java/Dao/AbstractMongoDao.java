@@ -5,11 +5,9 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import com.mongodb.client.model.InsertOneOptions;
 import org.bson.Document;
 
-/**
- * Created by User on 8/28/2017.
- */
 public abstract class AbstractMongoDao<T> implements AbstractDao<T, MongoClient> {
     protected static final String OBJECT_RECORD = "object";
     protected MongoClient client;
@@ -25,7 +23,10 @@ public abstract class AbstractMongoDao<T> implements AbstractDao<T, MongoClient>
     @Override
     public void create(T entity) {
         MongoCollection<Document> collection = database.getCollection(getRecordsName());
-        collection.insertOne(new Document(OBJECT_RECORD, gson.toJson(entity)));
+        Document entityToAdd = new Document(OBJECT_RECORD, gson.toJson(entity));
+        if (collection.find(entityToAdd).first() == null) {
+            collection.insertOne(entityToAdd);
+        }
     }
 
     protected abstract String getRecordsName();
