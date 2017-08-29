@@ -1,5 +1,7 @@
-__author__ = 'Oded  Hupert'
-
+from flask import Flask, request
+from flask_restful import Resource, Api
+from json import dumps
+from flask.ext.jsonpify import jsonify
 from sklearn import datasets
 from sklearn import feature_extraction
 from sklearn import preprocessing
@@ -13,6 +15,21 @@ from sklearn import grid_search
 from sklearn import cross_validation
 from sklearn.cross_validation import train_test_split
 from sklearn import metrics
+import requests
+import json
+
+def getTextFromTopic(url):
+    soup = BeautifulSoup(scraper.get(link).content, 'lxml')
+    blocks = soup.find('blockquote', {"class": "postcontent restore"})
+    try:
+        blocks = blocks.script.decompose()
+    except:
+        pass
+    if blocks != None:
+        return blocks.text.strip().encode("UTF-8")
+    else:
+        return ""
+
 
 print("Importing data  from folder...")
 # here we create a Bunch
@@ -36,14 +53,7 @@ raw_documents = raw_bunch['data']
 document_feature_matrix = vectorizer.fit_transform(raw_documents)
 feature_names = vectorizer.get_feature_names()
 print("     Done!")
-# print("     scaling ...")
-# scaler = preprocessing.StandardScaler(copy=True, with_mean=False, with_std=True).fit(document_feature_matrix)
-# We are using sparse matrix so we have to define with_mean=False
-# Scaler can be used later for new objects
-# document_term_matrix_scaled = scaler.transform(document_feature_matrix)
-# print("     Done!")
 print("Done!")
-
 print("Building a classifier...")
 # print("     selecting features ...")
 # var = feature_selection.VarianceThreshold(threshold=(0.2 * (1 - 0.2)))
@@ -51,47 +61,32 @@ print("Building a classifier...")
 # k_best = feature_selection.SelectKBest(k=10)
 # document_feature_matrix = k_best.fit_transform(document_feature_matrix, raw_bunch['target'])
 print("     training...")
-
-print("---------------------------------------")
-
-
-# STEP 2 - Tries
-X_train, X_test, y_train, y_test = train_test_split(document_feature_matrix,
-                                                    raw_bunch['target'], test_size=0.1, random_state=42)
-
 clf = svm.SVC(C=0.01, kernel="linear")
 # clf = KNeighborsClassifier(n_neighbors=2)
-clf.fit(X_train, y_train)
-print("Done!")
-# parameters = [{'kernel': ['linear'], 'C': [1, 10, 100]},
-#               {'kernel': ['poly'], 'degree': [1, 2, 3, 4]}]
-# print("Building a classifier...")
-# print("    parameters tuning...")
-# clf = grid_search.GridSearchCV(svm.SVC(C=1), parameters, cv=10)
-# clf.fit(document_feature_matrix, raw_bunch['target'])
-# print("Done!")
+clf.fit(document_feature_matrix, raw_bunch['target'])
 
-print("score test cv:")
-scores = cross_validation.cross_val_score(clf, document_feature_matrix, raw_bunch['target'], scoring=None,
-                                          cv=10, n_jobs=1, verbose=0,
-                                          fit_params=None, pre_dispatch='2*n_jobs')
-print(scores)
-# #
-# print("Best parameters set found on development set:")
-# print()
-# print(clf.best_params_)
-# print()
-# print("Grid scores on development set:")
-# print()
-# for params, mean_score, scores in clf.grid_scores_:
-#     print("%0.3f (+/-%0.03f) for %r"
-#           % (mean_score, scores.std() * 2, feature_names[params]))
-# print()
+app = Flask(__name__)
+api = Api(app)
 
-# print("Detailed classification report:")
-# print()
-# print("The model is trained on the full development set.")
-# print("The scores are computed on the full evaluation set.")
-# print()
-print(metrics.classification_report(clf.predict(X_test), y_test))
-print()
+class checkWebsite(Resource):
+    def post(self):
+        url=request.data
+        content = getTextFromTopic(url)
+        pred = clf.predict(content)
+        #phe phe=0
+        if pred == 0:
+            
+            r = requests.post('http://127.0.0.1:4567/create', data=js_data)
+            pass
+            #phe
+        else :
+            r = requests.post('http://127.0.0.1:4567', data={'key': 'value'})
+            pass
+        return r
+
+
+api.add_resource(checkWebsite, '/checkWeb')
+
+if __name__ == '__main__':
+     app.run(port='5002')
+     
