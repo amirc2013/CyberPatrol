@@ -38,6 +38,10 @@ function parseGET(url)
 * the andular module
 */
 angular.module('scanApp', [])
+  .config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.timeout = 210000000;
+}]);
+angular.module('scanApp', [])
 	.controller('scanControler', function($http) {
 		var scan = this;
 		var $_GET = parseGET()
@@ -45,7 +49,7 @@ angular.module('scanApp', [])
 		scan.classification = 'בבדיקה'
 		$http({
 		  method: 'POST',
-		  url: 'http://192.168.99.203:5002/sampleWeb',
+		  url: 'http://192.168.99.203:4567/sampleWeb',
 		  data: scan.url,
 		  timeout: 210000000
 		}).then(function successCallback(response) {
