@@ -3,22 +3,22 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<script src="app.js"></script>
+<link rel="stylesheet" href="style.css"><script src="app.js"></script>
 </head>
 <body dir="rtl">
 
-<h3> ΧΧΧ’Χ¨ ΧΧªΧ¨Χ™Χ Χ¤ΧΧ™ΧΧ™Χ™Χ </h3>
+<h3> ξΰβψ ΰϊψιν τμιμιιν </h3>
 <div ng-controller="DBControler as db">
 <table class="table table-bordered">
 	<tr>
-		<th style="text-align:center">Χ©Χ</th>
-		<th style="text-align:center">Χ›ΧªΧ•Χ‘Χª</th>
-		<th style="text-align:center">Χ΅Χ™Χ•Χ•Χ’ Χ¤ΧΧ™ΧΧ™</th>
+		<th style="text-align:center"> <div class="row header">ων</div></th>
+		<th style="text-align:center"><div class="row header">λϊεαϊ</div></th>
+		<th style="text-align:center"><div class="row header">ριεεβ τμιμι</div></th>
 	</tr>
 	<tr ng-repeat="site in db.sites">
 		<td>{{site.name}}</td>
 		<td>{{site.url}}</td>
-		<td>{{site.classifictclassification}}</td>
+		<td><center>{{site.classifictclassification}}</center></td>
 	</tr>
 </table>
 </div>
