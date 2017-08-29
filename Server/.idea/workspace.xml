@@ -38,7 +38,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/public/main.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="125">
@@ -58,21 +58,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
               <caret line="6" column="23" lean-forward="false" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-              <folding>
-                <element signature="e#583#584#0" expanded="true" />
-                <element signature="e#630#631#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="list.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/public/list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="425">
+              <caret line="17" column="34" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="26" selection-end-column="4" />
               <folding>
-                <marker date="1503969888206" expanded="true" signature="796:807" ph="..." />
+                <marker date="1503972498184" expanded="true" signature="796:807" ph="..." />
               </folding>
             </state>
           </provider>
@@ -178,6 +175,7 @@
         <option value="$PROJECT_DIR$/src/main/java/General/Configuration.java" />
         <option value="$PROJECT_DIR$/src/main/java/General/Bootstrap.java" />
         <option value="$PROJECT_DIR$/src/main/resources/public/main.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/public/list.html" />
       </list>
     </option>
   </component>
@@ -1018,11 +1016,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41205000" />
+    <option name="totallyTimeSpent" value="41805000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1381,10 +1378,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="6" column="23" lean-forward="false" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-          <folding>
-            <element signature="e#583#584#0" expanded="true" />
-            <element signature="e#630#631#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
