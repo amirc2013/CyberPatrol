@@ -45,13 +45,12 @@ angular.module('scanApp', [])
 		scan.classification = 'בבדיקה'
 		$http({
 		  method: 'POST',
-		  url: 'http://192.168.99.203:5002/sampleWeb',
+		  url: 'http://192.168.99.203:4567/sampleWeb',
 		  data: scan.url,
-		  timeout: 210000000
 		}).then(function successCallback(response) {
 			scan.classification = response.data;
 		  }, function errorCallback(response) {
-			scan.classification = 'בדיקה נכשלה'
+			scan.classification = 'בדיקה נכשלה';
 		  });
 	}
 	);
