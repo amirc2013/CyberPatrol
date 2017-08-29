@@ -22,6 +22,7 @@ from sklearn import cross_validation
 from sklearn.cross_validation import train_test_split
 from sklearn import metrics
 import requests
+import lxml.html
 import json
 
 def getTextFromTopic(link):
@@ -37,6 +38,14 @@ def getTextFromTopic(link):
     else:
         return ""
 
+def getTitleFromTopic(link):
+    scraper = cfscrape.create_scraper()  # returns a CloudflareScraper instance
+    soup = BeautifulSoup(scraper.get(link).content, 'lxml')
+    blocks = soup.find('title')
+    if blocks != None:
+        return blocks.text.strip().encode("UTF-8")
+    else:
+        return ""
 
 print("Importing data  from folder...")
 # here we create a Bunch
@@ -103,20 +112,20 @@ api = Api(app)
 
 app = Flask(__name__)
 api = Api(app)
-
 class sampleWeb(Resource):
     def post(self):
         url = request.data
         content = getTextFromTopic(url)
+        content = vectorizer.transform([content])
         pred = clf.predict(content)
         #phe phe=0
         if pred == 0:
             js_data = {}
-            js_data["name"] = "TESTINGGG"
+            js_data["name"] = getTitleFromTopic(url)
             js_data["url"] = url
             js_data["classifictclassification"] ="PEDOPHILE"
 
-            r = requests.post('http://127.0.0.1:4567/create', data=json.dumps(js_data))
+            r = requests.post('http://127.0.0.1:4567/addWebsite', data=json.dumps(js_data))
             return "PEDOPHILE"
         else :
             return "NONE"
