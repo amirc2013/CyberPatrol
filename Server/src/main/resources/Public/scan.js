@@ -39,15 +39,19 @@ function parseGET(url)
 */
 angular.module('scanApp', [])
 	.controller('scanControler', function($http) {
-		var db = this;
+		var scan = this;
 		var $_GET = parseGET()
-		var scan_url = $_GET['url']
-		db.site = {url:scan_url,classifictclassification:'בבדיקה'};
-		$http.post('/url',scan_url,'').then(function successCallback(response) {
-			db.site = response.data;
+		scan.url = $_GET['url'];
+		scan.classification = 'בבדיקה'
+		$http({
+		  method: 'POST',
+		  url: 'http://192.168.99.203:5002/sampleWeb',
+		  data: scan.url,
+		  timeout: 210000000
+		}).then(function successCallback(response) {
+			scan.classification = response.data;
 		  }, function errorCallback(response) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
+			scan.classification = 'בדיקה נכשלה'
 		  });
 	}
 	);
