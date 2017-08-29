@@ -1,5 +1,5 @@
 package Entities;
 
 public enum CriminalClassification {
-    PEDOPHILE,DRUG,WEAPON
+    PEDOPHILE,DRUG,WEAPON,NONE
 }
