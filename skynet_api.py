@@ -1,4 +1,5 @@
 
+from flask_cors import CORS
 from bs4 import BeautifulSoup
 import urllib
 from IPython.display import Image, display
@@ -112,27 +113,30 @@ api = Api(app)
 
 app = Flask(__name__)
 api = Api(app)
-class sampleWeb(Resource):
-    def post(self):
-        url = request.data
-        content = getTextFromTopic(url)
-        content = vectorizer.transform([content])
-        pred = clf.predict(content)
-        #phe phe=0
-        if pred == 0:
-            js_data = {}
-            js_data["name"] = getTitleFromTopic(url)
-            js_data["url"] = url
-            js_data["classifictclassification"] ="PEDOPHILE"
 
-            r = requests.post('http://127.0.0.1:4567/addWebsite', data=json.dumps(js_data))
-            return "PEDOPHILE"
-        else :
-            return "NONE"
+@app.route('/sampleWeb', methods=['GET', 'POST'])
+def get():
+    url = request.args.get('url')
+    with open('temp.txt',"w") as f:
+        f.write("message is = "+url)
+    
+    content = getTextFromTopic(url)
+    content = vectorizer.transform([content])
+    pred = clf.predict(content)
+    #phe phe=0
+    if pred == 0:
+        js_data = {}
+        js_data["name"] = getTitleFromTopic(url)
+        js_data["url"] = url
+        js_data["classifictclassification"] ="PEDOPHILE"
+
+        r = requests.post('http://127.0.0.1:4567/addWebsite', data=json.dumps(js_data))
+        return "PEDOPHILE"
+    else :
+        return "NONE"
 
 
 
-api.add_resource(sampleWeb, '/sampleWeb') 
 
 if __name__ == '__main__':
      app.run(port='5002')

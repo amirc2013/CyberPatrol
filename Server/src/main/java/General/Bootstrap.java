@@ -3,6 +3,7 @@ package General;
  * Created by User on 8/28/2017.
  */
 
+import Communication.HttpClientUtil;
 import Dao.WebsiteDaoMongoImpl;
 import Entities.Website;
 import Exceptions.CyberPatrolException;
@@ -10,6 +11,8 @@ import Service.WebsiteService;
 import Service.WebsiteServiceImpl;
 import com.google.gson.Gson;
 import com.mongodb.*;
+
+import java.net.URLDecoder;
 
 import static spark.Spark.*;
 
@@ -33,6 +36,12 @@ public class Bootstrap {
             post("/addWebsite", (request, response) -> {
                 webService.create(gson.fromJson(request.body(), Website.class));
                 return true;
+            });
+
+            post("/sampleWeb", (request, response) -> {
+                String urlToCheck = URLDecoder.decode(request.body(),"UTF-8");
+                System.out.println(urlToCheck);
+                return gson.toJson(new HttpClientUtil().sendGETWithParam("http://127.0.0.1:5002/sampleWeb",urlToCheck));
             });
 
             get("/getWebsites", (req, res) -> gson.toJson(webService.getWebsites()));
