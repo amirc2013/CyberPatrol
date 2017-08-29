@@ -75,7 +75,7 @@ class checkWebsite(Resource):
         pred = clf.predict(content)
         #phe phe=0
         if pred == 0:
-            
+
             r = requests.post('http://127.0.0.1:4567/create', data=js_data)
             pass
             #phe
