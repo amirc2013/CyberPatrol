@@ -1,3 +1,9 @@
+
+from bs4 import BeautifulSoup
+import urllib
+from IPython.display import Image, display
+import sys
+import cfscrape
 from flask import Flask, request
 from flask_restful import Resource, Api
 from json import dumps
@@ -18,7 +24,8 @@ from sklearn import metrics
 import requests
 import json
 
-def getTextFromTopic(url):
+def getTextFromTopic(link):
+    scraper = cfscrape.create_scraper()  # returns a CloudflareScraper instance
     soup = BeautifulSoup(scraper.get(link).content, 'lxml')
     blocks = soup.find('blockquote', {"class": "postcontent restore"})
     try:
@@ -34,7 +41,7 @@ def getTextFromTopic(url):
 print("Importing data  from folder...")
 # here we create a Bunch
 # object ['target_names', 'data', 'target', 'DESCR', 'filenames']
-raw_bunch = datasets.load_files('./data', description=None, categories=None, load_content=True,
+raw_bunch = datasets.load_files('./ML/data', description=None, categories=None, load_content=True,
                                 shuffle=True, encoding='utf-8', decode_error='replace')
 print("Done!")
 print("Processing text to data...")
@@ -68,24 +75,55 @@ clf.fit(document_feature_matrix, raw_bunch['target'])
 app = Flask(__name__)
 api = Api(app)
 
-class checkWebsite(Resource):
+# class checkWeb(Resource):
+#     def get(self):
+#          return '{"name":"GamesForChildren","url":"www.GamesForChildren.co.il","classifictclassification":"PEDOPHILE"}'
+
+#     def post(self):
+#         print "BUYA"
+#         return "{}"
+        # url = url['url']
+        # content = getTextFromTopic(url)
+        # pred = clf.predict(content)
+        # #phe phe=0
+        # if pred == 0:
+        #     js_data = {}
+        #     js_data["name"] = "TESTINGGG"
+        #     js_data["url"] = url
+        #     js_data["classifictclassification"] ="PEDOPHILE"
+
+        #     r = requests.post('http://127.0.0.1:4567/create', data=json.dumps(js_data))
+        #     pass
+        #     #phe
+        # else :
+        #     r = requests.post('http://127.0.0.1:4567', data={'key': 'value'})
+        #     pass
+        # return r
+
+
+app = Flask(__name__)
+api = Api(app)
+
+class sampleWeb(Resource):
     def post(self):
-        url=request.data
+        url = request.data
         content = getTextFromTopic(url)
         pred = clf.predict(content)
         #phe phe=0
         if pred == 0:
+            js_data = {}
+            js_data["name"] = "TESTINGGG"
+            js_data["url"] = url
+            js_data["classifictclassification"] ="PEDOPHILE"
 
-            r = requests.post('http://127.0.0.1:4567/create', data=js_data)
-            pass
-            #phe
+            r = requests.post('http://127.0.0.1:4567/create', data=json.dumps(js_data))
+            return "PEDOPHILE"
         else :
-            r = requests.post('http://127.0.0.1:4567', data={'key': 'value'})
-            pass
-        return r
+            return "NONE"
 
 
-api.add_resource(checkWebsite, '/checkWeb')
+
+api.add_resource(sampleWeb, '/sampleWeb') 
 
 if __name__ == '__main__':
      app.run(port='5002')
